@@ -1,8 +1,14 @@
 from flask import Flask, render_template
 from WaitingTime import WaitingTimeClient
+import os
+from dotenv import load_dotenv
 
+
+load_dotenv()
 app = Flask(__name__)
+api_key = os.environ.get("API_KEY")
 client = WaitingTimeClient()   # instantiate once
+
 
 @app.route('/')
 def home():
