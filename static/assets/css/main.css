@@ -2619,6 +2619,7 @@ input, select, textarea {
 					opacity: 1.0;
 					z-index: 1;
 					opacity: 0.8;
+					background-color: rgba(255, 255, 255, 0.6);
 				}
 
 				.tiles article > .image:after {
@@ -2671,7 +2672,7 @@ input, select, textarea {
 				padding: 1em;
 				border-radius: 4px;
 				border-bottom: 0;
-				color: #ffffff;
+				color: #585858;
 				text-align: center;
 				text-decoration: none;
 				z-index: 3;
@@ -2682,7 +2683,7 @@ input, select, textarea {
 				}
 
 				.tiles article > a:hover {
-					color: #ffffff !important;
+					color: #585858 !important;
 				}
 
 				.tiles article > a h2 {
@@ -2699,6 +2700,7 @@ input, select, textarea {
 					line-height: 1.5;
 					margin-top: 0.35em;
 					opacity: 0;
+					color: #111
 				}
 
 					.tiles article > a .content > :last-child {
@@ -2706,27 +2708,27 @@ input, select, textarea {
 					}
 
 			.tiles article.style1 > .image:before {
-				background-color: #f2849e;
+				background-color: rgba(255, 255, 255, 0.6);
 			}
 
 			.tiles article.style2 > .image:before {
-				background-color: #7ecaf6;
+				background-color: rgba(255, 255, 255, 0.6);
 			}
 
 			.tiles article.style3 > .image:before {
-				background-color: #7bd0c1;
+				background-color: rgba(255, 255, 255, 0.6);
 			}
 
 			.tiles article.style4 > .image:before {
-				background-color: #c75b9b;
+				background-color: rgba(255, 255, 255, 0.6);
 			}
 
 			.tiles article.style5 > .image:before {
-				background-color: #ae85ca;
+				background-color: rgba(255, 255, 255, 0.6);
 			}
 
 			.tiles article.style6 > .image:before {
-				background-color: #8499e7;
+				background-color: rgba(255, 255, 255, 0.6);
 			}
 
 			body:not(.is-touch) .tiles article:hover > .image {
