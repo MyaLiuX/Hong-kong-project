@@ -24,29 +24,8 @@
 								<a href="index.html" class="logo">
 									<span class="symbol"><img src="/static/images/logo.svg" alt="" /></span>Digital government transformation<span class="title"></span>
 								</a>
-
-							<!-- Nav -->
-								<nav>
-									<ul>
-										<li><a href="#menu">Menu</a></li>
-									</ul>
-								</nav>
-
-						</div>
 					</header>
-
-				<!-- Menu -->
-					<nav id="menu">
-						<h2>Menu</h2>
-						<ul>
-							<li><a href="index.html">Home</a></li>
-							<li><a href="generic.html">Ipsum veroeros</a></li>
-							<li><a href="generic.html">Tempus etiam</a></li>
-							<li><a href="generic.html">Consequat dolor</a></li>
-							<li><a href="elements.html">Elements</a></li>
-						</ul>
-					</nav>
-
+					
 				<!-- Main -->
 					<div id="main">
 						<div class="inner">
@@ -192,18 +171,37 @@
 				<!-- Footer -->
 					<footer id="footer">
 						<div class="inner">
-							<section>
-								<h2>Get in touch</h2>
-								<form method="post" action="#">
+							<section id="feedback">
+								<h2>Give your feedback</h2>
+									<!-- 🔔 Flash messages block -->
+								{% with messages = get_flashed_messages(with_categories=true) %}
+									{% if messages %}
+									  <div class="flash-messages">
+										{% for category, message in messages %}
+										  <p class="{{ category }}">{{ message }}</p>
+										{% endfor %}
+									  </div>
+									{% endif %}
+								  {% endwith %}
+							
+								<form method="post" action="/feedback#feedback">
 									<div class="fields">
 										<div class="field half">
-											<input type="text" name="name" id="name" placeholder="Name" />
-										</div>
-										<div class="field half">
-											<input type="email" name="email" id="email" placeholder="Email" />
-										</div>
+											<label for="point">Current Point</label>
+											<select name="point" id="point" required>
+											  <option value="">Select a point</option>
+											  <option value="Heung Yuen Wai">Heung Yuen Wai</option>
+											  <option value="Hong Kong-Zhuhai Macao-Bridge">Hong Kong-Zhuhai Macao-Bridge</option>
+											  <option value="Lok Ma Chau">Lok Ma Chau</option>
+											  <option value="Lok Ma Chau Spur Line">Lok Ma Chau Spur Line</option>
+											  <option value="Lo Wu">Lo Wu</option>
+											  <option value="Man Kam To">Man Kam To</option>
+											  <option value="Shenzhen Bay">Shenzhen Bay</option>
+											  <option value="Sha Tau Kok">Sha Tau Kok</option>
+											</select>
+										  </div>										  
 										<div class="field">
-											<textarea name="message" id="message" placeholder="Message"></textarea>
+											<textarea name="message" id="message" placeholder="Feedback"></textarea>
 										</div>
 									</div>
 									<ul class="actions">
@@ -214,22 +212,14 @@
 							<section>
 								<h2>Follow</h2>
 								<ul class="icons">
-									<li><a href="#" class="icon brands style2 fa-twitter"><span class="label">Twitter</span></a></li>
-									<li><a href="#" class="icon brands style2 fa-facebook-f"><span class="label">Facebook</span></a></li>
-									<li><a href="#" class="icon brands style2 fa-instagram"><span class="label">Instagram</span></a></li>
-									<li><a href="#" class="icon brands style2 fa-dribbble"><span class="label">Dribbble</span></a></li>
-									<li><a href="#" class="icon brands style2 fa-github"><span class="label">GitHub</span></a></li>
-									<li><a href="#" class="icon brands style2 fa-500px"><span class="label">500px</span></a></li>
-									<li><a href="#" class="icon solid style2 fa-phone"><span class="label">Phone</span></a></li>
-									<li><a href="#" class="icon solid style2 fa-envelope"><span class="label">Email</span></a></li>
+									<li><a href="https://github.com/MyaLiuX/Hong-kong-project" class="icon brands style2 fa-github"><span class="label">GitHub</span></a></li>
 								</ul>
 							</section>
 							<ul class="copyright">
-								<li>&copy; Untitled. All rights reserved</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+								<li>&copy; 2025 Mingyang Liu @ Hong Kong Project</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
 							</ul>
 						</div>
 					</footer>
-
 			</div>
 
 		<!-- Scripts -->
