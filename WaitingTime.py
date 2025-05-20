@@ -74,15 +74,23 @@ class WaitingTimeClient:
     def get_resident_times(self):
         r_data = self.fetch_resident()
         for place, info in r_data.items():
-            info['arrQueue'] = self._judge_resident(info.get('arrQueue', -1))
-            info['depQueue'] = self._judge_resident(info.get('depQueue', -1))
+            if isinstance(info['arrQueue'], int):
+                info['arrQueue'] = self._judge_resident(info['arrQueue'])
+            if isinstance(info['depQueue'], int):
+                info['depQueue'] = self._judge_resident(info['depQueue'])
+            print(f"{place} raw arrQueue:", info['arrQueue'])
+        # Remove the 'arrQueue' and 'depQueue' keys from the dictionary
         return r_data
+
 
     def get_visitor_times(self):
         v_data = self.fetch_visitor()
         for place, info in v_data.items():
-            info['arrQueue'] = self._judge_resident(info.get('arrQueue', -1))
-            info['depQueue'] = self._judge_resident(info.get('depQueue', -1))
+            if isinstance(info['arrQueue'], int):
+                info['arrQueue'] = self._judge_visitor(info['arrQueue'])
+            if isinstance(info['depQueue'], int):
+                info['depQueue'] = self._judge_visitor(info['depQueue'])
+            print(f"{place} raw arrQueue:", info['arrQueue'])
         return v_data
 
 if __name__ == '__main__':
