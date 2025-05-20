@@ -51,6 +51,9 @@ class WaitingTimeClient:
             return 'System Under Maintenance'
         elif time == 99:
             return 'Non Service Hours'
+        else:
+            return f"Unknown ({time})"
+
 
     @staticmethod
     def _judge_visitor(time):
@@ -62,22 +65,24 @@ class WaitingTimeClient:
             return '45 minutes or above'
         elif time == 4:
             return 'System Under Maintenance'
-        else:
+        elif time == 99:
             return 'Non Service Hours'
+        else:
+            return f"Unknown ({time})"
 
 
     def get_resident_times(self):
         r_data = self.fetch_resident()
         for place, info in r_data.items():
-            info['arrQueue'] = self._judge_resident(info['arrQueue'])
-            info['depQueue'] = self._judge_resident(info['depQueue'])
+            info['arrQueue'] = self._judge_resident(info.get('arrQueue', -1))
+            info['depQueue'] = self._judge_resident(info.get('depQueue', -1))
         return r_data
 
     def get_visitor_times(self):
         v_data = self.fetch_visitor()
         for place, info in v_data.items():
-            info['arrQueue'] = self._judge_visitor(info['arrQueue'])
-            info['depQueue'] = self._judge_visitor(info['depQueue'])
+            info['arrQueue'] = self._judge_resident(info.get('arrQueue', -1))
+            info['depQueue'] = self._judge_resident(info.get('depQueue', -1))
         return v_data
 
 if __name__ == '__main__':
