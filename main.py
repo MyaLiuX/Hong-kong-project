@@ -49,8 +49,8 @@ def home():
 
 @app.route("/check-db")
 def check_db():
-    count = Feedback.query.count()
-    return f"There are {count} feedback records."
+    feedbacks = Feedback.query.all()
+    return render_template('check_db.html', feedbacks=feedbacks)
 
 
 if __name__ == '__main__':
