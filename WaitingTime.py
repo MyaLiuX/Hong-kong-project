@@ -4,13 +4,17 @@ class WaitingTimeClient:
     RESIDENT_URL = 'https://secure1.info.gov.hk/immd/mobileapps/2bb9ae17/data/CPQueueTimeR.json'
     VISITOR_URL  = 'https://secure1.info.gov.hk/immd/mobileapps/2bb9ae17/data/CPQueueTimeV.json'
 
+    headers = {
+    "User-Agent": "Mozilla/5.0",
+    "Accept": "application/json"
+    }
 
     def __init__(self):
         self._resident_raw = None
         self._visitor_raw  = None
 
     def _fetch(self, url):
-        resp = requests.get(url)
+        resp = requests.get(url, headers=self.headers)
         resp.raise_for_status()
         return resp.json()
 

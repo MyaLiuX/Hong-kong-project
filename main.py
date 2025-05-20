@@ -3,6 +3,7 @@ from WaitingTime import WaitingTimeClient
 import os
 from dotenv import load_dotenv
 from Feedbackdb import db, Feedback
+import threading, time
 
 # Create the web application
 load_dotenv()
@@ -20,20 +21,16 @@ db.init_app(app)
 with app.app_context():
     db.create_all()
 
-@app.route("/feedback", methods=["POST"])
-def submit_feedback():
-    point = request.form.get("point")
-    message = request.form.get("message")
+# Fetch data every 15 minutes
+resident_data = {}
+visitor_data = {}
 
-    if not point or not message:
-        flash("Please complete all fields before submitting.", "error")
-    else:
-        new_feedback = Feedback(point=point, message=message)
-        db.session.add(new_feedback)
-        db.session.commit()
-        flash("Your feedback was submitted.", "success")
-
-    return redirect("/")  # or wherever your homepage is
+def fetch_api_loop():
+    global resident_data, visitor_data
+    while True:
+        resident_data = client.get_resident_times()
+        visitor_data = client.get_visitor_times()
+        time.sleep(900) 
 
 
 @app.route('/')
@@ -47,6 +44,21 @@ def home():
         visitor_data=visitor_data
     )
 
+@app.route("/feedback", methods=["POST"])
+def submit_feedback():
+    point = request.form.get("point")
+    message = request.form.get("message")
+
+    if not point or not message:
+        flash("Please complete all fields before submitting.", "error")
+    else:
+        new_feedback = Feedback(point=point, message=message)
+        db.session.add(new_feedback)
+        db.session.commit()
+        flash("Your feedback was submitted.", "success")
+
+    return redirect("/")  
+
 @app.route("/check-db")
 def check_db():
     feedbacks = Feedback.query.all()
@@ -54,5 +66,6 @@ def check_db():
 
 
 if __name__ == '__main__':
+    threading.Thread(target=fetch_api_loop, daemon=True).start()
     app.run(debug=True)
 
