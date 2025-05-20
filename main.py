@@ -12,7 +12,7 @@ app.secret_key = "my_secret_key"
 client = WaitingTimeClient()   # instantiate once
 
 # Configure the database
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///feedback.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DB_URI")
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db.init_app(app)
@@ -46,6 +46,12 @@ def home():
         resident_data=resident_data,
         visitor_data=visitor_data
     )
+
+@app.route("/check-db")
+def check_db():
+    count = Feedback.query.count()
+    return f"There are {count} feedback records."
+
 
 if __name__ == '__main__':
     app.run(debug=True)
