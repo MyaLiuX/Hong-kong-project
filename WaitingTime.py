@@ -14,9 +14,20 @@ class WaitingTimeClient:
         self._visitor_raw  = None
 
     def _fetch(self, url):
-        resp = requests.get(url, headers=self.headers)
-        resp.raise_for_status()
-        return resp.json()
+        try:
+            print(f"🌐 Fetching from {url}")
+            response = requests.get(url, headers=self.headers, timeout=10)
+            print(f"✅ Status Code: {response.status_code}")
+            print("📦 First 300 chars of response:", response.text[:300])
+            response.raise_for_status()
+            return response.json()
+        except Exception as e:
+            print("❌ Error fetching API data:", e)
+            return {}
+        
+    def refresh(self):
+        self._resident_raw = None
+        self._visitor_raw = None
 
     def fetch_resident(self):
         if self._resident_raw is None:

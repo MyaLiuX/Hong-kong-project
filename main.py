@@ -28,21 +28,30 @@ visitor_data = {}
 def fetch_api_loop():
     global resident_data, visitor_data
     while True:
+        print(f"🔄 Refreshing API at {time.strftime('%Y-%m-%d %H:%M:%S')}")
         resident_data = client.get_resident_times()
         visitor_data = client.get_visitor_times()
-        time.sleep(900) 
+        print("✅ Resident keys:", list(resident_data.keys()))
+        print("✅ Visitor keys:", list(visitor_data.keys()))
+        time.sleep(900)  # 15 minutes
+
 
 
 @app.route('/')
 def home():
+    # force refresh every time user visits the homepage
+    client
+
     resident_data = client.get_resident_times()
     visitor_data  = client.get_visitor_times()
+
     return render_template(
         'index.html',
         title='Home Page',
         resident_data=resident_data,
         visitor_data=visitor_data
     )
+
 
 @app.route("/feedback", methods=["POST"])
 def submit_feedback():
