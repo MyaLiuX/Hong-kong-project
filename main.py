@@ -40,17 +40,12 @@ def fetch_api_loop():
 @app.route('/')
 def home():
     # force refresh every time user visits the homepag
-    resident_data = client.get_resident_times()
-    visitor_data  = client.get_visitor_times()
     home_show=client.home_page_showing()
-
 
     return render_template(
         'index.html',
         title='Home Page',
         home_show=home_show,
-        resident_data=resident_data,
-        visitor_data=visitor_data
     )
 
 @app.route('/hyw')
@@ -60,6 +55,90 @@ def hyw():
 
     return render_template(
         'hyw.html',
+        title='Secondary Page',
+        resident_data=resident_data,
+        visitor_data=visitor_data
+    )
+
+@app.route('/hzm')
+def hzm():
+    resident_data = client.get_resident_times()
+    visitor_data  = client.get_visitor_times()
+
+    return render_template(
+        'hzm.html',
+        title='Secondary Page',
+        resident_data=resident_data,
+        visitor_data=visitor_data
+    )
+
+@app.route('/lmc')
+def lmc():
+    resident_data = client.get_resident_times()
+    visitor_data  = client.get_visitor_times()
+
+    return render_template(
+        'lmc.html',
+        title='Secondary Page',
+        resident_data=resident_data,
+        visitor_data=visitor_data
+    )
+
+@app.route('/lsc')
+def lsc():
+    resident_data = client.get_resident_times()
+    visitor_data  = client.get_visitor_times()
+
+    return render_template(
+        'lsc.html',
+        title='Secondary Page',
+        resident_data=resident_data,
+        visitor_data=visitor_data
+    )
+
+@app.route('/lws')
+def lws():
+    resident_data = client.get_resident_times()
+    visitor_data  = client.get_visitor_times()
+
+    return render_template(
+        'lws.html',
+        title='Secondary Page',
+        resident_data=resident_data,
+        visitor_data=visitor_data
+    )
+
+@app.route('/mkt')
+def mkt():
+    resident_data = client.get_resident_times()
+    visitor_data  = client.get_visitor_times()
+
+    return render_template(
+        'mkt.html',
+        title='Secondary Page',
+        resident_data=resident_data,
+        visitor_data=visitor_data
+    )
+
+@app.route('/sbc')
+def sbc():
+    resident_data = client.get_resident_times()
+    visitor_data  = client.get_visitor_times()
+
+    return render_template(
+        'sbc.html',
+        title='Secondary Page',
+        resident_data=resident_data,
+        visitor_data=visitor_data
+    )
+
+@app.route('/stk')
+def stk():
+    resident_data = client.get_resident_times()
+    visitor_data  = client.get_visitor_times()
+
+    return render_template(
+        'stk.html',
         title='Secondary Page',
         resident_data=resident_data,
         visitor_data=visitor_data

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-    <title>{{ title|default('Heung Yuen Wai') }} - Hong Kong Control Point</title> <meta charset="utf-8" />
+    <title>{{ title|default('Hong Kong-Zhuhai Macao-Bridge') }} - Hong Kong Control Point</title> <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
     
     <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/main.css') }}" />
@@ -128,9 +128,9 @@
         <div id="main">
             <div class="inner">
                 
-                <h1>Heung Yuen Wai</h1>
+                <h1>Hong Kong-Zhuhai Macao-Bridge</h1>
                 <span class="image main">
-                    <img src="{{ url_for('static', filename='images/pic13.jpg') }}" alt="Heung Yuen Wai" />
+                    <img src="{{ url_for('static', filename='images/pic13.jpg') }}" alt="Hong Kong-Zhuhai Macao-Bridge" />
                 </span>
 
                 <div class="info-card">
@@ -138,12 +138,12 @@
                         <p>
 							<span class="icon">📍</span> 
 							<strong>Location:</strong> 
-							<span class="address-text">Heung Yuen Wai Control Point, Sha Tau Kok, New Territories</span>
+							<span class="address-text">Hong Kong-Zhuhai-Macao Bridge Hong Kong Port, Lantau Island</span>
 						</p>
                         <p>
 							<span class="icon">🕒</span> 
 							<strong>Opening Hours:</strong>  
-							<span class="address-text">7:00 am to 10:00 pm</span>
+							<span class="address-text">24 hours</span>
 						</p>
                     </div>
 
@@ -153,16 +153,16 @@
                         <div class="wait-group">
                             <h3>For Resident</h3>
                             <ul>
-                                <li><strong>Arrival:</strong>&nbsp; {{ resident_data['HYW']['arrQueue'] }}</li>
-                                <li><strong>Departure:</strong>&nbsp; {{ resident_data['HYW']['depQueue'] }}</li>
+                                <li><strong>Arrival:</strong>&nbsp; {{ resident_data['HZM']['arrQueue'] }}</li>
+                                <li><strong>Departure:</strong>&nbsp; {{ resident_data['HZM']['depQueue'] }}</li>
                             </ul>
                         </div>
 
                         <div class="wait-group">
                             <h3>For Visitor</h3>
                             <ul>
-                                <li><strong>Arrival:</strong>&nbsp; {{ visitor_data['HYW']['arrQueue'] }}</li>
-                                <li><strong>Departure:</strong>&nbsp; {{ visitor_data['HYW']['depQueue'] }}</li>
+                                <li><strong>Arrival:</strong>&nbsp; {{ visitor_data['HZM']['arrQueue'] }}</li>
+                                <li><strong>Departure:</strong>&nbsp; {{ visitor_data['HZM']['depQueue'] }}</li>
                             </ul>
                         </div>
                     </div> </div> </div>

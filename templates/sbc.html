@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-    <title>{{ title|default('Heung Yuen Wai') }} - Hong Kong Control Point</title> <meta charset="utf-8" />
+    <title>{{ title|default('Shenzhen Bay') }} - Hong Kong Control Point</title> <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
     
     <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/main.css') }}" />
@@ -28,20 +28,22 @@
         }
 
         .details p {
-            margin: 15px 0;
-            font-size: 1.1em;
-            color: #555;
-            display: flex;
-            align-items: center;
-        }
+        margin: 15px 0;
+        font-size: 1.1em;
+        color: #555;
+        display: flex; 
+        align-items: flex-start; 
+    }
 
-        .details .icon {
-            margin-right: 12px;
-            font-size: 1.3em;
-            color: #283555; 
-            width: 25px;
-            text-align: center;
-        }
+    .details .info-label {
+        margin-right: 12px; 
+        white-space: nowrap;
+        flex-shrink: 0; 
+    }
+
+    .details .info-content {
+        flex-grow: 1; 
+    }
 
         .waiting-times {
             margin-top: 35px;
@@ -125,12 +127,13 @@
                 </div>
         </header>
 
+
         <div id="main">
             <div class="inner">
                 
-                <h1>Heung Yuen Wai</h1>
+                <h1>Shenzhen Bay</h1>
                 <span class="image main">
-                    <img src="{{ url_for('static', filename='images/pic13.jpg') }}" alt="Heung Yuen Wai" />
+                    <img src="{{ url_for('static', filename='images/pic13.jpg') }}" alt="Shenzhen Bay" />
                 </span>
 
                 <div class="info-card">
@@ -138,13 +141,15 @@
                         <p>
 							<span class="icon">📍</span> 
 							<strong>Location:</strong> 
-							<span class="address-text">Heung Yuen Wai Control Point, Sha Tau Kok, New Territories</span>
+							<span class="address-text">Shenzhen Bay Control Point, Ngau Hom Shek, Tuen Mun, New Territories</span>
 						</p>
-                        <p>
-							<span class="icon">🕒</span> 
-							<strong>Opening Hours:</strong>  
-							<span class="address-text">7:00 am to 10:00 pm</span>
-						</p>
+                        <p> 
+                            <span class="icon">⏰</span> 
+                            <span class="info-label">Opening Hours:</span>
+                            <span class="info-content"> Passenger Clearance Building and private cars' passenger clearance services: 6:30 am to midnight<br>
+                                Goods vehicle clearance services: 24 hours
+                            </span>
+                        </p>
                     </div>
 
                     <div class="waiting-times">
@@ -153,16 +158,16 @@
                         <div class="wait-group">
                             <h3>For Resident</h3>
                             <ul>
-                                <li><strong>Arrival:</strong>&nbsp; {{ resident_data['HYW']['arrQueue'] }}</li>
-                                <li><strong>Departure:</strong>&nbsp; {{ resident_data['HYW']['depQueue'] }}</li>
+                                <li><strong>Arrival:</strong>&nbsp; {{ resident_data['SBC']['arrQueue'] }}</li>
+                                <li><strong>Departure:</strong>&nbsp; {{ resident_data['SBC']['depQueue'] }}</li>
                             </ul>
                         </div>
 
                         <div class="wait-group">
                             <h3>For Visitor</h3>
                             <ul>
-                                <li><strong>Arrival:</strong>&nbsp; {{ visitor_data['HYW']['arrQueue'] }}</li>
-                                <li><strong>Departure:</strong>&nbsp; {{ visitor_data['HYW']['depQueue'] }}</li>
+                                <li><strong>Arrival:</strong>&nbsp; {{ visitor_data['SBC']['arrQueue'] }}</li>
+                                <li><strong>Departure:</strong>&nbsp; {{ visitor_data['SBC']['depQueue'] }}</li>
                             </ul>
                         </div>
                     </div> </div> </div>
