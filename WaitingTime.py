@@ -1,4 +1,5 @@
 import requests
+import copy
 
 class WaitingTimeClient:
     RESIDENT_URL = 'https://secure1.info.gov.hk/immd/mobileapps/2bb9ae17/data/CPQueueTimeR.json'
@@ -32,12 +33,12 @@ class WaitingTimeClient:
     def fetch_resident(self):
         if self._resident_raw is None:
             self._resident_raw = self._fetch(self.RESIDENT_URL)
-        return self._resident_raw
+        return copy.deepcopy(self._resident_raw) 
 
     def fetch_visitor(self):
         if self._visitor_raw is None:
             self._visitor_raw = self._fetch(self.VISITOR_URL)
-        return self._visitor_raw
+        return copy.deepcopy(self._visitor_raw)
 
     @staticmethod
     def _judge_resident(time):
@@ -69,39 +70,78 @@ class WaitingTimeClient:
             return 'Non Service Hours'
         else:
             return f"Unknown ({time})"
+        
+    @staticmethod
+    def home_page_judging(time):
+        if time == 0:
+            return 'Port Clear'
+        if time == 1 or time == 2:
+            return 'Long Wait'
+        if time == 4:
+            return 'System Under Maintenance'
+        if time == 99:
+            return 'Non Service Hours'
+        else:
+            return f"Unknown ({time})"
+        
+    def home_page_showing(self):
 
+            r_data = self.fetch_resident()
+            v_data = self.fetch_visitor()
+
+            if not r_data or not v_data:
+                print("❌ Could not fetch data for both resident and visitor. Cannot generate home page status.")
+                return {}
+
+            home_show = {}
+            common_keys = r_data.keys() & v_data.keys()
+
+            print(f"\nFound {len(common_keys)} common control points.")
+
+            for key in common_keys:
+                if key in r_data and 'arrQueue' in r_data[key]:
+                    time_code = r_data[key]['arrQueue']
+                    status = self.home_page_judging(time_code)
+                    home_show[key] = status
+                else:
+                    print(f"⚠️ Warning: Key '{key}' or 'arrQueue' not found in r_data, skipping.")
+
+            return home_show
 
     def get_resident_times(self):
         r_data = self.fetch_resident()
+        processed_data = {}
         for place, info in r_data.items():
-            if isinstance(info['arrQueue'], int):
-                info['arrQueue'] = self._judge_resident(info['arrQueue'])
-            if isinstance(info['depQueue'], int):
-                info['depQueue'] = self._judge_resident(info['depQueue'])
-            print(f"{place} raw arrQueue:", info['arrQueue'])
-        # Remove the 'arrQueue' and 'depQueue' keys from the dictionary
-        return r_data
+            processed_info = info.copy() # <-- 必须 copy()，不修改原始数据
+            if isinstance(processed_info.get('arrQueue'), int):
+                processed_info['arrQueue'] = self._judge_resident(processed_info['arrQueue'])
+            if isinstance(processed_info.get('depQueue'), int):
+                processed_info['depQueue'] = self._judge_resident(processed_info['depQueue'])
+            processed_data[place] = processed_info
+        return processed_data
 
 
     def get_visitor_times(self):
         v_data = self.fetch_visitor()
+        processed_data = {}
         for place, info in v_data.items():
-            if isinstance(info['arrQueue'], int):
-                info['arrQueue'] = self._judge_visitor(info['arrQueue'])
-            if isinstance(info['depQueue'], int):
-                info['depQueue'] = self._judge_visitor(info['depQueue'])
-            print(f"{place} raw arrQueue:", info['arrQueue'])
-        return v_data
+            processed_info = info.copy()
+            if isinstance(processed_info.get('arrQueue'), int):
+                processed_info['arrQueue'] = self._judge_visitor(processed_info['arrQueue'])
+            if isinstance(processed_info.get('depQueue'), int):
+                processed_info['depQueue'] = self._judge_visitor(processed_info['depQueue'])
+            processed_data[place] = processed_info
+        return processed_data
 
 if __name__ == '__main__':
     client = WaitingTimeClient()
     resident = client.get_resident_times()
     visitor  = client.get_visitor_times()
 
-    print("Residents:")
-    for place, times in resident.items():
-        print(f" - {place}: arrival {times['arrQueue']}, departure {times['depQueue']}")
+    # print("Residents:")
+    # for place, times in resident.items():
+    #     print(f" - {place}: arrival {times['arrQueue']}, departure {times['depQueue']}")
 
-    print("\nVisitors:")
-    for place, times in visitor.items():
-        print(f" - {place}: arrival {times['arrQueue']}, departure {times['depQueue']}")
+    # print("\nVisitors:")
+    # for place, times in visitor.items():
+    #     print(f" - {place}: arrival {times['arrQueue']}, departure {times['depQueue']}")

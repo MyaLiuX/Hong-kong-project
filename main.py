@@ -39,19 +39,31 @@ def fetch_api_loop():
 
 @app.route('/')
 def home():
-    # force refresh every time user visits the homepage
-    client
-
+    # force refresh every time user visits the homepag
     resident_data = client.get_resident_times()
     visitor_data  = client.get_visitor_times()
+    home_show=client.home_page_showing()
+
 
     return render_template(
         'index.html',
         title='Home Page',
+        home_show=home_show,
         resident_data=resident_data,
         visitor_data=visitor_data
     )
 
+@app.route('/hyw')
+def hyw():
+    resident_data = client.get_resident_times()
+    visitor_data  = client.get_visitor_times()
+
+    return render_template(
+        'hyw.html',
+        title='Secondary Page',
+        resident_data=resident_data,
+        visitor_data=visitor_data
+    )
 
 @app.route("/feedback", methods=["POST"])
 def submit_feedback():

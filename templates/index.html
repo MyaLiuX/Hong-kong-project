@@ -38,16 +38,10 @@
 									<span class="image">
 										<img src="/static/images/pic01.jpg" alt="" />
 									</span>
-									<a href="generic.html">
+									<a href="/hyw">
 										<h2>Heung Yuen Wai</h2>
 										<div class="content">
-											<p>Waiting Time<br>
-												For Resident<br>
-												arrive - {{resident_data['HYW']['arrQueue']}}<br>
-												departure - {{resident_data['HYW']['depQueue']}}<br>
-												For Visitor <br>
-												arrive - {{visitor_data['HYW']['arrQueue']}}<br>
-												departure - {{visitor_data['HYW']['depQueue']}}</p>
+											<p>{{home_show["HYW"]}}<br>
 										</div>
 									</a>
 								</article>
@@ -173,7 +167,7 @@
 						<div class="inner">
 							<section id="feedback">
 								<h2>Give your feedback</h2>
-									<!-- 🔔 Flash messages block -->
+									<!-- 🔔 Flash messages block --> 
 								{% with messages = get_flashed_messages(with_categories=true) %}
 									{% if messages %}
 									  <div class="flash-messages">
