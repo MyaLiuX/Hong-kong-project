@@ -1,10 +1,11 @@
 from flask import Flask, render_template, flash, redirect, request, url_for
-from WaitingTime import WaitingTimeClient # Your WaitingTime.py
+from WaitingTime import WaitingTimeClient 
 import os
 from dotenv import load_dotenv
-from Feedbackdb import db, Feedback # Your Feedbackdb.py with the new Feedback model
+from Feedbackdb import db, Feedback
 import threading, time
-from datetime import datetime # Needed if you interact with datetime objects directly, though SQLAlchemy handles it
+from datetime import datetime 
+from zoneinfo import ZoneInfo
 
 # --- Constants and Initial Data Structures ---
 CONTROL_POINT_CODES = ["HYW", "HZM", "LMC", "LSC", "LWS", "MKT", "SBC", "STK"]
@@ -26,6 +27,7 @@ def initialize_control_point_data_structure():
 
 resident_data_global = initialize_control_point_data_structure()
 visitor_data_global = initialize_control_point_data_structure()
+last_update = "N/A"
 
 # --- Flask App Setup ---
 load_dotenv()
@@ -42,7 +44,7 @@ with app.app_context():
 
 # --- Background Data Fetching Thread ---
 def data_fetch_and_update_loop():
-    global resident_data_global, visitor_data_global
+    global resident_data_global, visitor_data_global, last_update
     print("🚀 Background data fetching thread started.")
     while True:
         current_timestamp_str = time.strftime('%Y-%m-%d %H:%M:%S')
@@ -79,6 +81,9 @@ def data_fetch_and_update_loop():
             else:
                 for code in CONTROL_POINT_CODES: temp_visitor_data[code].update({'arrQueue': FETCH_ERROR_STATUS, 'depQueue': FETCH_ERROR_STATUS, 'lastUpdate': DEFAULT_LAST_UPDATE})
             visitor_data_global = temp_visitor_data
+
+            last_update = datetime.now(ZoneInfo("Asia/Hong_Kong")) .strftime("%Y-%m-%d %H:%M:%S %Z")
+            print(f"🕒 Updated global last_update = {last_update}")
             
             print(f"✅ [{current_timestamp_str}] Background Fetch: Data updated. Sample (HYW Res Arr): {resident_data_global.get('HYW', {}).get('arrQueue')}")
         except Exception as e:
@@ -94,6 +99,10 @@ def start_background_thread_if_not_running():
         background_thread = threading.Thread(target=data_fetch_and_update_loop, daemon=True)
         background_thread.start()
         app.background_thread_started_flag_main_v2 = True
+
+@app.context_processor
+def inject_last_update():
+    return {"last_update": last_update}
 
 # --- Routes ---
 @app.route('/')
@@ -114,9 +123,6 @@ def home():
         control_points=CONTROL_POINT_CODES # Pass control point codes for feedback form dropdown
     )
 
-# --- Control Point Specific Routes ---
-# The routes for /hyw, /hzm, etc. remain the same, passing resident_data_global and visitor_data_global
-# They will also pass CONTROL_POINT_CODES for consistency if feedback form is on these pages.
 
 def render_control_point_page(template_name, title, point_code):
     # Helper to avoid repetition

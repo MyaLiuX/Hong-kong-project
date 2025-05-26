@@ -37,10 +37,12 @@
 						</p>
                         <p> 
                             <span class="icon">⏰</span> 
-                            <span class="info-label">Opening Hours:</span>
-                            <span class="info-content"> Passenger Clearance Building and private cars' passenger clearance services: 6:30 am to midnight<br>
-                                Goods vehicle clearance services: 24 hours
-                            </span>
+                            <span class="info-label"><strong>Open Hours:</strong></span>
+                            <!-- <span class="info-content"> Passenger Clearance Building and private cars' passenger clearance services: 6:30 am to midnight<br>
+                                Goods vehicle clearance services: 24 hours</span> -->
+                            <span class="address-text">1. Passenger Clearance Building and private cars' passenger clearance services: 6:30 am to midnight<br>
+                                2. Goods vehicle clearance services: 24 hours</span>
+                            
                         </p>
                     </div>
 
@@ -62,7 +64,9 @@
                                 <li><strong>Departure:</strong>&nbsp; {{ visitor_data['SBC']['depQueue'] }}</li>
                             </ul>
                         </div>
-                    </div> </div> </div>
+                    </div> 
+                    <div class="update-time">Last updated: {{ last_update }}</div>
+                </div> </div>
         </div>
 
         <footer id="footer">

@@ -64,12 +64,15 @@
 }
 
 .wait-group ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
+    list-style: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
 }
 
+
 .wait-group li {
+    display: flex;
+    align-items: baseline;
     padding: 8px 0;
     font-size: 1.1em;
     border-bottom: 1px dashed #ddd;
@@ -79,10 +82,8 @@
 }
 
 .wait-group li strong {
-    display: inline-block;
-    width: 100px;
-    color: #333;
-    font-weight: 600;
+    min-width: 100px;
+    margin-right: 1em;
 }
 
 
@@ -139,11 +140,32 @@
     }
 
     .details p {
+        display: flex;          
+        flex-wrap: wrap;        
+        align-items: flex-start;
         font-size: 1em; 
         margin: 10px 0;
     }
     .details .icon {
         font-size: 1.1em; 
+    }
+
+    .details p .icon {
+        flex-shrink: 0;
+        margin-right: 0.5em;
+      }
+    
+     
+    .details p strong {
+        flex-shrink: 0;
+        margin-right: 0.5em;
+      }
+    
+     
+    .details p .address-text {
+        flex: 1 1 auto;
+        min-width: 0;          
+      }
     }
 
     .waiting-times h2 {
@@ -186,7 +208,6 @@
         max-width: 100%;
         height: auto;
     }
-}
 
 
 @media (max-width: 480px) {
@@ -196,5 +217,18 @@
     .info-card h1 {
         font-size: 1.6em;
     }
-
 }
+
+#main .wait-group > ul,
+#main .wait-group > ul li {
+  list-style: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.update-time {
+    text-align: right;
+    font-size: 0.9em;
+    color: #666;
+    margin-top: 0.5em;
+  }
