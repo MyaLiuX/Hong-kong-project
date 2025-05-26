@@ -5,7 +5,7 @@ from datetime import datetime
 db = SQLAlchemy()
 
 class Feedback(db.Model):
-    __tablename__ = 'feedbacks'
+    tablename = 'feedbacks'
 
     id: Mapped[int] = mapped_column(primary_key=True)
     point: Mapped[str] = mapped_column(nullable=False)

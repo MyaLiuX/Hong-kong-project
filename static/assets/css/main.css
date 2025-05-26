@@ -73,6 +73,8 @@ input, select, textarea {
 }
 
 select {
+	position: relative;
+	z-index: 1000;
 	width: 100%;
 	padding: 0.75em;
 	font-size: 1em;
@@ -82,10 +84,18 @@ select {
 	font-family: inherit;
 	color: inherit;
   }
+
+  
   
   select:focus {
 	outline: none;
-	border-bottom-color: #ff3366; /* matches your current pink highlight */
+	border-bottom-color: #ff3366; 
+  }
+
+  select:not(:-internal-list-box) {
+	overflow: visible !important;
+	overflow-x: visible !important;
+	overflow-y: visible !important;
   }
 
   .flash-messages p {
@@ -3367,3 +3377,4 @@ select {
 			}
 
 		}
+	
