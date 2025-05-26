@@ -84,10 +84,7 @@ class WaitingTimeClient:
         else:
             return f"Unknown ({time})"
         
-    def home_page_showing(self):
-
-            r_data = self.fetch_resident()
-            v_data = self.fetch_visitor()
+    def home_page_showing(self,r_data, v_data):
 
             if not r_data or not v_data:
                 print("❌ Could not fetch data for both resident and visitor. Cannot generate home page status.")
