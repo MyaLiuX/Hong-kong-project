@@ -40,7 +40,7 @@ def fetch_api_loop():
 @app.route('/')
 def home():
     # force refresh every time user visits the homepag
-    home_show=client.home_page_showing(resident_data, visitor_data)
+    home_show=client.home_page_showing(client.fetch_resident(), client.fetch_visitor())
 
     return render_template(
         'index.html',
