@@ -112,7 +112,7 @@ class WaitingTimeClient:
         r_data = self.fetch_resident()
         processed_data = {}
         for place, info in r_data.items():
-            processed_info = info.copy() # <-- 必须 copy()，不修改原始数据
+            processed_info = info.copy()
             if isinstance(processed_info.get('arrQueue'), int):
                 processed_info['arrQueue'] = self._judge_resident(processed_info['arrQueue'])
             if isinstance(processed_info.get('depQueue'), int):

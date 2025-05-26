@@ -50,8 +50,6 @@ def home():
 
 @app.route('/hyw')
 def hyw():
-    resident_data = client.get_resident_times()
-    visitor_data  = client.get_visitor_times()
 
     return render_template(
         'hyw.html',
@@ -62,8 +60,6 @@ def hyw():
 
 @app.route('/hzm')
 def hzm():
-    resident_data = client.get_resident_times()
-    visitor_data  = client.get_visitor_times()
 
     return render_template(
         'hzm.html',
@@ -74,8 +70,6 @@ def hzm():
 
 @app.route('/lmc')
 def lmc():
-    resident_data = client.get_resident_times()
-    visitor_data  = client.get_visitor_times()
 
     return render_template(
         'lmc.html',
@@ -86,8 +80,6 @@ def lmc():
 
 @app.route('/lsc')
 def lsc():
-    resident_data = client.get_resident_times()
-    visitor_data  = client.get_visitor_times()
 
     return render_template(
         'lsc.html',
@@ -98,8 +90,6 @@ def lsc():
 
 @app.route('/lws')
 def lws():
-    resident_data = client.get_resident_times()
-    visitor_data  = client.get_visitor_times()
 
     return render_template(
         'lws.html',
@@ -110,8 +100,6 @@ def lws():
 
 @app.route('/mkt')
 def mkt():
-    resident_data = client.get_resident_times()
-    visitor_data  = client.get_visitor_times()
 
     return render_template(
         'mkt.html',
@@ -122,8 +110,6 @@ def mkt():
 
 @app.route('/sbc')
 def sbc():
-    resident_data = client.get_resident_times()
-    visitor_data  = client.get_visitor_times()
 
     return render_template(
         'sbc.html',
@@ -134,8 +120,6 @@ def sbc():
 
 @app.route('/stk')
 def stk():
-    resident_data = client.get_resident_times()
-    visitor_data  = client.get_visitor_times()
 
     return render_template(
         'stk.html',
