@@ -35,7 +35,7 @@ app = Flask(__name__)
 app.secret_key = os.environ.get("FLASK_SECRET_KEY", "dev_secret_key_!ChangeThis!")
 client = WaitingTimeClient()
 
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DB_URI", "sqlite:///./feedback_app_data.db") # Renamed DB file slightly
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DB_URI", "sqlite:///./feedback_app_data.db") 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db.init_app(app)
 
@@ -173,11 +173,12 @@ def stk():
 def submit_feedback():
     point = request.form.get("point")
     message = request.form.get("message")
+    dimension = request.form.get("dimension")  # Default to "General" if not provided
 
     if not point or not message:
         flash("Please complete all fields before submitting.", "error")
     else:
-        new_feedback = Feedback(point=point, message=message)
+        new_feedback = Feedback(point=point, dimension=dimension, message=message)
         db.session.add(new_feedback)
         db.session.commit()
         flash("Your feedback was submitted.", "success")
@@ -197,4 +198,4 @@ if __name__ == '__main__':
     app.logger.info("Flask application starting...")
     
     is_reloader_child = os.environ.get("WERKZEUG_RUN_MAIN") == "true"
-    app.run(debug=True, use_reloader=not is_reloader_child, host="0.0.0.0", port=5001)
+    app.run(debug=True, use_reloader=not is_reloader_child, host="0.0.0.0", port=5000)
