@@ -203,6 +203,15 @@ select {
 			border-bottom-color: transparent;
 			color: #f2849e !important;
 		}
+		a.logo.no-hover-effect {
+			cursor: default;
+		}
+
+		a.logo.no-hover-effect:hover {
+			color: #585858 !important;  
+			border-bottom-color: transparent; 
+		}
+
 
 	strong, b {
 		font-weight: 900;
@@ -1913,6 +1922,7 @@ select {
 			.icon.style2:active {
 				background-color: rgba(242, 132, 158, 0.1);
 			}
+
 
 /* List */
 
