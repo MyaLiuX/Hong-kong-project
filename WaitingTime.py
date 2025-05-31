@@ -71,10 +71,10 @@ class WaitingTimeClient:
 
     @staticmethod
     def home_page_judging(time):
-        if time == 0: return 'Port Clear'
-        if time == 1 or time == 2: return 'Long Wait'
-        if time == 4: return 'System Under Maintenance'
-        if time == 99: return 'Non Service Hours'
+        if time == 0: return '🟢 Smooth'
+        if time == 1 or time == 2: return '🟡 Congested'
+        if time == 4: return '🔴 Service Disrupted'
+        if time == 99: return '⚪ Non Service Hours'
         return f"Unknown ({time})"
 
     def home_page_showing(self, r_data_raw, v_data_raw):
